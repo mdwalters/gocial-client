@@ -1,10 +1,10 @@
 <script>
     export let ws;
-    export let posts;
+    let posts;
 
     ws.send(`{"cmd": "home"}`);
     ws.on("message", (data) => {
-        posts = data.val;
+        console.log(data);
     });
 </script>
 

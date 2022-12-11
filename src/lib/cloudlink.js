@@ -1,13 +1,14 @@
 class Cloudlink {
     constructor(server) {
         this.events = {};
+        console.warn('Cloudlink.js is deprecated. Please use another library. See https://github.com/wgyt/cloudlink#Deprecation');
         this.ws = new WebSocket(server);
         this.ws.onopen = async () => {
             this.emit('connected');
         };
         this.ws.onmessage = (socketdata) => {
             var data = JSON.parse(socketdata.data);
-            this.emit('message', data);
+            this.emit(data.cmd, data);
         };
         this.ws.onclose = () => {
             this.emit('disconnected');
@@ -17,6 +18,7 @@ class Cloudlink {
         };
     }
     send(data) {
+        console.log(`%cOUTGOING: ${JSON.stringify(data)}`, "color: gray; font-style: italic");
         this.ws.send(JSON.stringify(data));
     }
     on(event, cb) {

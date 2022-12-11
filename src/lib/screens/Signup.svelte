@@ -1,6 +1,8 @@
 <script>
+// @ts-nocheck
+
     export let ws;
-    import { screen } from "../stores.js";
+    import { screen, username, password } from "../stores.js";
 </script>
 
 <div class="position-absolute top-50 start-50 translate-middle text-center justify-content-center">
@@ -17,7 +19,9 @@
         screen.set("menu");
     }}>Back</button>
     <button class="btn btn-primary btn-lg" on:click={() => {
-        ws.send(`{"cmd": "signup", "username": ${document.getElementById("username").value}, "password": ${document.getElementById("password").value}}`);
+        username.set(document.getElementById("username").value);
+        password.set(document.getElementById("password").value);
+        ws.send(`{"cmd": "signup", "username": "${document.getElementById("username").value}", "password": "${document.getElementById("password").value}"}`);
         screen.set("home");
     }}>Sign up</button>
 </div>
